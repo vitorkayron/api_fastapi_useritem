@@ -15,6 +15,10 @@ def create_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.refresh(db_item)
     return db_item
 
+def delete_user(db: Session, user: models.User):
+    db.delete(user)
+    db.commit()
+
 def get_user_by_id(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
@@ -23,3 +27,4 @@ def get_user_by_email(db: Session, user_email: str):
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.User).offset(skip).limit(limit).all()
+
